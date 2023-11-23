@@ -292,11 +292,12 @@ SELECT alunos.nome, cursos.titulo, professores.nome AS "Nome professor" FROM alu
 ### 9) Faça uma consulta que mostre a quantidade de alunos que cada curso possui. Classifique os resultados em ordem descrecente de acordo com a quantidade de alunos.
 ```sql
 
-SELECT cursos.titulo AS "Matéria", 
+SELECT cursos.titulo AS "Matéria",
 COUNT(alunos.curso_id) AS "QTD Alunos"
 FROM alunos
 INNER JOIN cursos
 ON alunos.curso_id = cursos.id
+GROUP BY Matéria
 ORDER BY COUNT(alunos.curso_id) DESC;
 
 ```
@@ -315,7 +316,9 @@ SELECT alunos.nome, primeira_nota, segunda_nota, ROUND(AVG((primeira_nota + segu
 ### 11) Faça uma consulta que altere o nome do curso de Figma para Adobe XD e sua carga horária de 10 para 15.
 ```sql
 
--- 15ª Digitação (SQL para criar a consulta acima)
+UPDATE cursos
+SET titulo = 'AdobeXD', carga_horaria = 15
+WHERE id = 4; 
 
 ```
 ![Relatório 11](resultados_alunos/relatorio11.jpg)
@@ -336,7 +339,9 @@ DELETE FROM alunos WHERE nome = 'Mário Calore' AND curso_id = 3;
 ### 13) Faça uma consulta que mostre a lista de alunos atualizada e o título dos cursos que fazem, classificados pelo nome do aluno.
 ```sql
 
--- 17ª Digitação (SQL para criar a consulta acima)
+select alunos.nome, cursos.titulo AS titulo from alunos INNER JOIN cursos
+ON alunos.curso_id = cursos.id
+GROUP BY nome ORDER BY nome;
 
 ```
 ![Relatório 13](resultados_alunos/relatorio13.jpg)
@@ -365,7 +370,8 @@ ROUND(primeira_nota + segunda_nota)/ 2 AS "Média das notas" FROM alunos WHERE (
 ### 3) Criar uma consulta que calcule a média das notas de cada aluno e mostre somente os alunos que tiveram a média **menor que 7**.
 ```sql
 
--- 20ª Digitação (SQL para criar a consulta acima)
+SELECT alunos.nome, primeira_nota, segunda_nota, 
+ROUND(primeira_nota + segunda_nota)/ 2 AS "Média das notas" FROM alunos WHERE ((primeira_nota + segunda_nota) / 2) < 7;
 
 ```
 ![Desafio 3](resultados_alunos/desafio3.jpg)
